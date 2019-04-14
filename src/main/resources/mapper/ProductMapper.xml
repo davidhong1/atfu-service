@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuan.atfu.mapper.ProductMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.yuan.atfu.domain.entity.Product">
+        <id column="id" property="id" />
+        <result column="no" property="no" />
+        <result column="type" property="type" />
+        <result column="brand" property="brand" />
+        <result column="package_type" property="packageType" />
+        <result column="batch" property="batch" />
+        <result column="inventory" property="inventory" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+</mapper>
