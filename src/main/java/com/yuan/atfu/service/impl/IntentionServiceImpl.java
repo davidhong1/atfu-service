@@ -33,6 +33,8 @@ public class IntentionServiceImpl extends ServiceImpl<IntentionMapper, Intention
 
     @Override
     public void sendEmail(Intention intention) {
+        log.info("开始发送邮件");
+
         long startTime = System.currentTimeMillis();
 
         Map<String, Object> params = new HashMap<>();
