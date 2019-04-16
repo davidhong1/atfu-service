@@ -28,7 +28,8 @@ public class IntentionServiceImpl extends ServiceImpl<IntentionMapper, Intention
     @Autowired
     private MailSendService mailSendService;
 
-    private String notifyEmail = "min@atfucomponents.com";
+    // private String notifyEmail = "min@atfucomponents.com";
+    private String notifyEmail = "1751632917@qq.com";
 
     @Override
     public void sendEmail(Intention intention) {
@@ -45,10 +46,16 @@ public class IntentionServiceImpl extends ServiceImpl<IntentionMapper, Intention
         mail.setParams(params);
         mail.setTemplate("place_order.ftl");
         mail.setSubject("自动发送:客户询问下单邮件");
-        mailSendService.sendWithHTMLTemplate(mail);
+
+        boolean succ = mailSendService.sendWithHTMLTemplate(mail);
 
         long endTime = System.currentTimeMillis();
-        log.info("发送邮件用时: {}ms", (endTime - startTime)/1000.0);
+        if (succ) {
+            log.info("成功发送邮件, 用时: {}ms", (endTime - startTime)/1000.0);
+        } else {
+            log.info("发送邮件失败, 用时: {}ms", (endTime - startTime)/1000.0);
+        }
+
     }
 
 }

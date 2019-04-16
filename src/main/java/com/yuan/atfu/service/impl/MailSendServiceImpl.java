@@ -63,7 +63,6 @@ public class MailSendServiceImpl implements MailSendService {
             mimeMessageHelper.setTo(mail.getEmail());
             mimeMessageHelper.setFrom(from);
             mimeMessageHelper.setSubject(mail.getSubject());
-            Map<String, Object> params = new HashMap<>();
             // 使用模板生成html邮件内容
             String result = getMailTextByTemplateName(mail.getTemplate(), mail.getParams());
             mimeMessageHelper.setText(result, true);
