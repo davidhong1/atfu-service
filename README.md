@@ -1,15 +1,18 @@
+# atfu SpringBoot后台项目
+[配套前端项目]()
+
 > 本项目主要演示：
 
-1.SpringBoot项目入门
+1. SpringBoot项目入门
 
-2.SpringBoot发送邮件
+2. SpringBoot发送邮件
 
-3.SpringBoot集成mybatis-plus
+3. SpringBoot集成mybatis-plus
 
 --------
 
 ## 准备数据库，执行以下MySQL脚本
-```bash
+```
 mysql -uroot -p < ./sql/atfu.sql
 ```
 修改application-dev.properties中你的MySQL密码
@@ -33,7 +36,7 @@ spring.mail.password=
 [前端项目链接]()
 
 ## 两个接口
-### 产品数据接口，展示mybatis-plus的使用
+### 产品数据接口，展示mybatis-plus的使用 [mybatis-plus官网](https://mp.baomidou.com/)
 ```java
     /**
      * 产品分页接口
@@ -70,6 +73,36 @@ spring.mail.password=
         ret.put("currentPage", page);
         return BaseResponse.ok(ret);
     }
+```
+mybatis-plus lambda方式拼接MySQL
+```java
+    /**
+     * 使用mybatis-plus提供的lambda的方式
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.yuan.atfu.domain.entity.Product>
+     * @author David Hong
+     */
+    @Override
+    public IPage<Product> pageOrderByGmtCreateDesc(Integer pageNum, Integer pageSize) {
+        return lambdaQuery()
+                .orderByDesc(Product::getGmtCreate)
+                .page(new Page<>(pageNum, pageSize));
+    }
+```
+mybatis-plus mapper注解方式使用MySQL
+```java
+    /**
+     * MySQL like 查询
+     *
+     * @param page
+     * @param content
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.yuan.atfu.domain.entity.Product>
+     * @author David Hong
+     */
+    @Select("select * from product where no like #{content} or type like #{content} or brand like #{content} or package_type like #{content} order by gmt_create desc")
+    IPage<Product> search(IPage<Product> page, String content);
 ```
 ![]()
 
