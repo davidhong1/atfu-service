@@ -6,7 +6,6 @@ import com.yuan.atfu.domain.entity.Product;
 import com.yuan.atfu.mapper.ProductMapper;
 import com.yuan.atfu.service.ProductService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,13 +19,35 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> implements ProductService {
 
-    @Autowired
-    private ProductMapper productMapper;
-
+    /**
+     * 使用mybatis-plus提供的lambda的方式
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.yuan.atfu.domain.entity.Product>
+     * @author David Hong
+     */
     @Override
-    public IPage<Product> search(String content, Integer page) {
-        IPage<Product> queryPage = new Page<>(page, 8);
-        IPage<Product> retPage = productMapper.search(queryPage, "%"+content+"%");
+    public IPage<Product> pageOrderByGmtCreateDesc(Integer pageNum, Integer pageSize) {
+        return lambdaQuery()
+                .orderByDesc(Product::getGmtCreate)
+                .page(new Page<>(pageNum, pageSize));
+    }
+
+    /**
+     * 使用sql注解的方式
+     *
+     * @param content
+     * @param pageNum
+     * @param pageSize
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.yuan.atfu.domain.entity.Product>
+     * @author David Hong
+     */
+    @Override
+    public IPage<Product> search(String content, Integer pageNum, Integer pageSize) {
+        IPage<Product> queryPage = new Page<>(pageNum, pageSize);
+        IPage<Product> retPage = this.getBaseMapper().search(queryPage, "%"+content+"%");
         return retPage;
     }
+
 }

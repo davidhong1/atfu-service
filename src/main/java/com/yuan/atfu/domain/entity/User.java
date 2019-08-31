@@ -1,9 +1,8 @@
 package com.yuan.atfu.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
@@ -38,13 +37,14 @@ public class User extends Model<User> {
 
     private String address;
 
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime gmtCreate;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime gmtModified;
 
     @TableLogic
     private Integer deleted;
-
 
     @Override
     protected Serializable pkVal() {

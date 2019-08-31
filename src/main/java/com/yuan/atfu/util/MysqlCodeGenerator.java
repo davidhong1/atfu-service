@@ -1,5 +1,6 @@
 package com.yuan.atfu.util;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
@@ -33,7 +34,7 @@ public class MysqlCodeGenerator {
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("David");
+        gc.setAuthor("David Hong");
         gc.setOpen(true);
         //service 命名方式
         gc.setServiceName("%sService");
@@ -77,10 +78,10 @@ public class MysqlCodeGenerator {
         //虽然像Mysql数据库有自动更新几只，但像ORACLE的数据库就没有了，
         //使用公共字段填充功能，就可以实现，自动按场景更新了。
         //如下是配置
-        //TableFill createField = new TableFill("gmt_create", FieldFill.INSERT);
-        //TableFill modifiedField = new TableFill("gmt_modified", FieldFill.INSERT_UPDATE);
-        //tableFillList.add(createField);
-        //tableFillList.add(modifiedField);
+        TableFill createField = new TableFill("gmt_create", FieldFill.INSERT);
+        TableFill modifiedField = new TableFill("gmt_modified", FieldFill.INSERT_UPDATE);
+        tableFillList.add(createField);
+        tableFillList.add(modifiedField);
 
         // 自定义配置
         InjectionConfig cfg = new InjectionConfig() {
@@ -104,6 +105,7 @@ public class MysqlCodeGenerator {
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
+        strategy.setTableFillList(tableFillList);
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityLombokModel(true);

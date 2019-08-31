@@ -1,8 +1,6 @@
 package com.yuan.atfu.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -53,13 +51,14 @@ public class Intention extends Model<Intention> {
      */
     private String more;
 
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime gmtCreate;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime gmtModified;
 
     @TableLogic
     private Integer deleted;
-
 
     @Override
     protected Serializable pkVal() {

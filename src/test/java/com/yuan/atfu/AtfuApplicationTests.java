@@ -1,6 +1,6 @@
 package com.yuan.atfu;
 
-import com.yuan.atfu.domain.dto.Mail;
+import com.yuan.atfu.domain.dto.EmailSend;
 import com.yuan.atfu.service.MailSendService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,7 +43,7 @@ public class AtfuApplicationTests {
     public void test1() throws Exception {
         Map<String, Object> params = new HashMap<>();
         params.put("username", "itf");
-        Mail mail  = new Mail();
+        EmailSend mail  = new EmailSend();
         mail.setEmail("1751632917@qq.com");
         mail.setParams(params);
         mail.setTemplate("place_order.ftl");

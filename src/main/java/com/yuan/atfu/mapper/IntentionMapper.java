@@ -2,7 +2,6 @@ package com.yuan.atfu.mapper;
 
 import com.yuan.atfu.domain.entity.Intention;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Repository;
  * @author David
  * @since 2019-04-10
  */
-@Repository
 public interface IntentionMapper extends BaseMapper<Intention> {
 
 }

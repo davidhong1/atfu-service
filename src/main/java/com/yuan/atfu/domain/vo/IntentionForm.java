@@ -3,13 +3,12 @@ package com.yuan.atfu.domain.vo;
 import lombok.Data;
 
 /**
- * @Description:
- * @Author: mac
- * @Date: 2019-04-13 12:51
- * @Version: 0.1
- **/
+ * @author David Hong
+ * @version 1.0
+ * @description 下单表单
+ */
 @Data
-public class ReqIntention {
+public class IntentionForm {
 
     /**
      * 咨询公司

@@ -2,7 +2,6 @@ package com.yuan.atfu.service;
 
 import com.yuan.atfu.domain.entity.Intention;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.scheduling.annotation.Async;
 
 /**
  * <p>
@@ -14,7 +13,13 @@ import org.springframework.scheduling.annotation.Async;
  */
 public interface IntentionService extends IService<Intention> {
 
-    @Async
+    /**
+     * 发送邮件
+     *
+     * @param intention
+     * @return void
+     * @author David Hong
+     */
     void sendEmail(Intention intention);
 
 }

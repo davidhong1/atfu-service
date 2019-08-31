@@ -1,6 +1,6 @@
 package com.yuan.atfu.service.impl;
 
-import com.yuan.atfu.domain.dto.Mail;
+import com.yuan.atfu.domain.dto.EmailSend;
 import com.yuan.atfu.domain.entity.Intention;
 import com.yuan.atfu.mapper.IntentionMapper;
 import com.yuan.atfu.service.IntentionService;
@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yuan.atfu.service.MailSendService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -28,13 +29,17 @@ public class IntentionServiceImpl extends ServiceImpl<IntentionMapper, Intention
     @Autowired
     private MailSendService mailSendService;
 
-    // private String notifyEmail = "min@atfucomponents.com";
-    private String notifyEmail = "1751632917@qq.com";
-
+    /**
+     * 异步发送邮件
+     *
+     * @param intention
+     * @return void
+     * @author David Hong
+     */
+    @Async
     @Override
     public void sendEmail(Intention intention) {
         log.info("开始发送邮件");
-
         long startTime = System.currentTimeMillis();
 
         Map<String, Object> params = new HashMap<>();
@@ -43,8 +48,8 @@ public class IntentionServiceImpl extends ServiceImpl<IntentionMapper, Intention
         params.put("email", intention.getEmail());
         params.put("fax", intention.getFax());
         params.put("more", intention.getMore());
-        Mail mail = new Mail();
-        mail.setEmail(notifyEmail);
+
+        EmailSend mail = new EmailSend();
         mail.setParams(params);
         mail.setTemplate("place_order.ftl");
         mail.setSubject("自动发送:客户询问下单邮件");
@@ -53,11 +58,10 @@ public class IntentionServiceImpl extends ServiceImpl<IntentionMapper, Intention
 
         long endTime = System.currentTimeMillis();
         if (succ) {
-            log.info("成功发送邮件, 用时: {}ms", (endTime - startTime)/1000.0);
+            log.info("成功发送邮件, 用时: {}s", (endTime - startTime) / 1000.0);
         } else {
-            log.info("发送邮件失败, 用时: {}ms", (endTime - startTime)/1000.0);
+            log.error("发送邮件失败, 用时: {}s", (endTime - startTime) / 1000.0);
         }
-
     }
 
 }

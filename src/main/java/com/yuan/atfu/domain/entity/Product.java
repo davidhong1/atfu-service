@@ -1,23 +1,14 @@
 package com.yuan.atfu.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-/**
- * <p>
- * 
- * </p>
- *
- * @author David
- * @since 2019-04-10
- */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
@@ -58,13 +49,14 @@ public class Product extends Model<Product> {
      */
     private Long inventory;
 
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime gmtCreate;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime gmtModified;
 
     @TableLogic
     private Integer deleted;
-
 
     @Override
     protected Serializable pkVal() {
