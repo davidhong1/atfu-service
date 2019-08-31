@@ -104,7 +104,7 @@ mybatis-plus mapper注解方式使用MySQL
     @Select("select * from product where no like #{content} or type like #{content} or brand like #{content} or package_type like #{content} order by gmt_create desc")
     IPage<Product> search(IPage<Product> page, String content);
 ```
-![]()
+![产品展示页面](https://github.com/HYUANT/atfu-web/tree/master/doc/products.png)
 
 ### 询问下单接口，发送邮件，展示SpringBootMail的使用
 ```java
@@ -136,5 +136,5 @@ public class IntentionController {
 
 }
 ```
-![]()
+![询问下单发送邮件页面](https://github.com/HYUANT/atfu-web/tree/master/doc/contact.png)
 
